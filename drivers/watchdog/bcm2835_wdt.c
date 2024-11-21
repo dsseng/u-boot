@@ -104,6 +104,7 @@ static const struct wdt_ops bcm2835_wdt_ops = {
 static const struct udevice_id bcm2835_wdt_ids[] = {
 	{ .compatible = "brcm,bcm2835-pm" },
 	{ .compatible = "brcm,bcm2835-pm-wdt" },
+	{ .compatible = "brcm,bcm2712-pm" },
 	{ /* sentinel */ }
 };
 
