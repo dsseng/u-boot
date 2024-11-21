@@ -521,6 +521,36 @@ struct bcm2835_mbox_tag_pci_dev_addr {
 	} body;
 };
 
+// Messages for manipulating RTC registers
+#define BCM2835_MBOX_TAG_GET_RTC_REG 0x00030087
+#define BCM2835_MBOX_TAG_SET_RTC_REG 0x00038087
+
+struct bcm2835_mbox_tag_rtc_get {
+	struct bcm2835_mbox_tag_hdr tag_hdr;
+	union {
+		struct {
+			u32 reg_id;
+			u32 reg_value;
+		} req;
+		struct {
+			u32 reg_id;
+			u32 reg_value;
+		} resp;
+	} body;
+};
+
+struct bcm2835_mbox_tag_rtc_set {
+	struct bcm2835_mbox_tag_hdr tag_hdr;
+	union {
+		struct {
+			u32 reg_id;
+			u32 reg_value;
+		} req;
+		struct {
+		} resp;
+	} body;
+};
+
 /*
  * Pass a raw u32 message to the VC, and receive a raw u32 back.
  *

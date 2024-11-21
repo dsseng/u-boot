@@ -52,6 +52,18 @@ struct msg_notify_vl805_reset {
 	u32 end_tag;
 };
 
+struct msg_rtc_get {
+	struct bcm2835_mbox_hdr hdr;
+	struct bcm2835_mbox_tag_rtc_get reg;
+	u32 end_tag;
+};
+
+struct msg_rtc_set {
+	struct bcm2835_mbox_hdr hdr;
+	struct bcm2835_mbox_tag_rtc_set reg;
+	u32 end_tag;
+};
+
 int bcm2835_power_on_module(u32 module)
 {
 	ALLOC_CACHE_ALIGN_BUFFER(struct msg_set_power_state, msg_pwr, 1);
@@ -243,6 +255,53 @@ int bcm2711_notify_vl805_reset(void)
 	}
 
 	udelay(200);
+
+	return 0;
+}
+
+int bcm2712_rtc_read_register(u32 reg, u32 *value)
+{
+	ALLOC_CACHE_ALIGN_BUFFER(struct msg_rtc_get,
+				 msg_rtc_get, 1);
+	int ret;
+
+	BCM2835_MBOX_INIT_HDR(msg_rtc_get);
+	BCM2835_MBOX_INIT_TAG(&msg_rtc_get->reg,
+			      GET_RTC_REG);
+
+	msg_rtc_get->reg.body.req.reg_id = reg;
+	msg_rtc_get->reg.body.req.reg_value = 0xEEBADBAD;
+
+	ret = bcm2835_mbox_call_prop(BCM2835_MBOX_PROP_CHAN,
+				     &msg_rtc_get->hdr);
+	if (ret) {
+		printf("bcm2712: Failed to read RTC register, %d\n", ret);
+		return -EIO;
+	}
+	*value = msg_rtc_get->reg.body.resp.reg_value;
+
+	return 0;
+}
+
+int bcm2712_rtc_write_register(u32 reg, u32 value)
+{
+	ALLOC_CACHE_ALIGN_BUFFER(struct msg_rtc_set,
+				 msg_rtc_set, 1);
+	int ret;
+
+	BCM2835_MBOX_INIT_HDR(msg_rtc_set);
+	BCM2835_MBOX_INIT_TAG(&msg_rtc_set->reg,
+			      SET_RTC_REG);
+
+	msg_rtc_set->reg.body.req.reg_id = reg;
+	msg_rtc_set->reg.body.req.reg_value = value;
+
+	ret = bcm2835_mbox_call_prop(BCM2835_MBOX_PROP_CHAN,
+				     &msg_rtc_set->hdr);
+	if (ret) {
+		printf("bcm2712: Failed to write RTC register, %d\n", ret);
+		return -EIO;
+	}
 
 	return 0;
 }
