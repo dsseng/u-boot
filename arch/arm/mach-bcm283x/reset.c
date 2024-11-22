@@ -11,6 +11,7 @@
 #include <asm/io.h>
 #include <asm/arch/base.h>
 #include <asm/arch/wdog.h>
+#include <asm/arch/mbox.h>
 #include <asm/arch/msg.h>
 #include <efi_loader.h>
 
@@ -99,8 +100,17 @@ void __efi_runtime EFIAPI efi_reset_system(
 
 efi_status_t efi_reset_system_init(void)
 {
+	int ret;
+
 	wdog_regs = (struct bcm2835_wdog_regs *)BCM2835_WDOG_PHYSADDR;
-	return efi_add_runtime_mmio(&wdog_regs, sizeof(*wdog_regs));
+	ret = efi_add_runtime_mmio(&wdog_regs, sizeof(*wdog_regs));
+	if (ret != EFI_SUCCESS)
+		return ret;
+
+	return efi_add_runtime_mmio(
+		(struct bcm2835_mbox_regs *)BCM2835_MBOX_PHYSADDR,
+		sizeof(struct bcm2835_mbox_regs)
+	);
 }
 
 #endif
