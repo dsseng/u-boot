@@ -76,10 +76,7 @@ int __do_poweroff(void)
 
 int do_poweroff(struct cmd_tbl *cmdtp, int flag, int argc, char *const argv[])
 {
-	__do_poweroff();
-
-	while (1) { }
-	return 0;
+	return __do_poweroff();
 }
 
 #ifdef CONFIG_EFI_LOADER
