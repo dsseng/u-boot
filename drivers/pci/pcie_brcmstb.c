@@ -61,6 +61,11 @@ struct brcm_pcie {
 
 	int			gen;
 	bool			ssc;
+	struct brcm_pcie_cfg *cfg;
+};
+
+struct brcm_pcie_cfg {
+	u16 hard_debug_offset;
 };
 
 /**
@@ -376,7 +381,7 @@ static int brcm_pcie_probe(struct udevice *dev)
 	/* Take the bridge out of reset */
 	clrbits_le32(base + PCIE_RGR1_SW_INIT_1, PCIE_RGR1_SW_INIT_1_INIT_MASK);
 
-	clrbits_le32(base + PCIE_MISC_HARD_PCIE_HARD_DEBUG,
+	clrbits_le32(base + pcie->cfg->hard_debug_offset,
 		     PCIE_HARD_DEBUG_SERDES_IDDQ_MASK);
 
 	/* Wait for SerDes to be stable */
@@ -517,7 +522,7 @@ static int brcm_pcie_remove(struct udevice *dev)
 	setbits_le32(base + PCIE_RGR1_SW_INIT_1, PCIE_RGR1_SW_INIT_1_PERST_MASK);
 
 	/* Turn off SerDes */
-	setbits_le32(base + PCIE_MISC_HARD_PCIE_HARD_DEBUG,
+	setbits_le32(base + pcie->cfg->hard_debug_offset,
 		     PCIE_HARD_DEBUG_SERDES_IDDQ_MASK);
 
 	/* Shutdown bridge */
@@ -539,6 +544,7 @@ static int brcm_pcie_of_to_plat(struct udevice *dev)
 		return -EINVAL;
 
 	pcie->ssc = ofnode_read_bool(dn, "brcm,enable-ssc");
+	pcie->cfg = (struct brcm_pcie_cfg *)dev_get_driver_data(dev);
 
 	ret = ofnode_read_u32(dn, "max-link-speed", &max_link_speed);
 	if (ret < 0 || max_link_speed > 4)
@@ -554,8 +560,12 @@ static const struct dm_pci_ops brcm_pcie_ops = {
 	.write_config	= brcm_pcie_write_config,
 };
 
+static const struct brcm_pcie_cfg bcm2711_config = {
+	.hard_debug_offset = PCIE_MISC_HARD_PCIE_HARD_DEBUG_BCM2711,
+};
+
 static const struct udevice_id brcm_pcie_ids[] = {
-	{ .compatible = "brcm,bcm2711-pcie" },
+	{ .compatible = "brcm,bcm2711-pcie", .data = (ulong)&bcm2711_config },
 	{ }
 };
 
