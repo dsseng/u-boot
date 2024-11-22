@@ -551,6 +551,19 @@ struct bcm2835_mbox_tag_rtc_set {
 	} body;
 };
 
+// Notify firmware of reboot/poweroff
+#define BCM2835_MBOX_TAG_NOTIFY_REBOOT 0x00030048
+
+struct bcm2835_mbox_tag_none {
+	struct bcm2835_mbox_tag_hdr tag_hdr;
+	union {
+		struct {
+		} req;
+		struct {
+		} resp;
+	} body;
+};
+
 /*
  * Pass a raw u32 message to the VC, and receive a raw u32 back.
  *

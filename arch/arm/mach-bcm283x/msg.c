@@ -64,6 +64,12 @@ struct msg_rtc_set {
 	u32 end_tag;
 };
 
+struct msg_notify_reboot {
+	struct bcm2835_mbox_hdr hdr;
+	struct bcm2835_mbox_tag_none tag;
+	u32 end_tag;
+};
+
 int bcm2835_power_on_module(u32 module)
 {
 	ALLOC_CACHE_ALIGN_BUFFER(struct msg_set_power_state, msg_pwr, 1);
@@ -300,6 +306,26 @@ int bcm2712_rtc_write_register(u32 reg, u32 value)
 				     &msg_rtc_set->hdr);
 	if (ret) {
 		printf("bcm2712: Failed to write RTC register, %d\n", ret);
+		return -EIO;
+	}
+
+	return 0;
+}
+
+int bcm2835_notify_reboot(void)
+{
+	ALLOC_CACHE_ALIGN_BUFFER(struct msg_notify_reboot,
+				 msg_notify_reboot, 1);
+	int ret;
+
+	BCM2835_MBOX_INIT_HDR(msg_notify_reboot);
+	BCM2835_MBOX_INIT_TAG(&msg_notify_reboot->tag,
+			      NOTIFY_REBOOT);
+
+	ret = bcm2835_mbox_call_prop(BCM2835_MBOX_PROP_CHAN,
+				     &msg_notify_reboot->hdr);
+	if (ret) {
+		printf("bcm2835: Failed to notify firmware of reboot, %d\n", ret);
 		return -EIO;
 	}
 

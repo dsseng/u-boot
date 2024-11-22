@@ -68,4 +68,6 @@ int bcm2711_notify_vl805_reset(void);
 int bcm2712_rtc_read_register(u32 reg, u32 *value);
 int bcm2712_rtc_write_register(u32 reg, u32 value);
 
+int bcm2835_notify_reboot(void);
+
 #endif
