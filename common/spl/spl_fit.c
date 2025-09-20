@@ -805,6 +805,8 @@ int spl_load_simple_fit(struct spl_image_info *spl_image,
 	if (ret < 0)
 		return ret;
 
+	printf("aaa\n");
+	
 	if (IS_ENABLED(CONFIG_SPL_FPGA))
 		spl_fit_load_fpga(&ctx, info, offset);
 
@@ -821,7 +823,7 @@ int spl_load_simple_fit(struct spl_image_info *spl_image,
 		node = spl_fit_get_image_node(&ctx, FIT_KERNEL_PROP, 0);
 
 	if (node < 0) {
-		debug("could not find firmware image, trying loadables...\n");
+		printf("could not find firmware image, trying loadables...\n");
 		node = spl_fit_get_image_node(&ctx, "loadables", 0);
 		/*
 		 * If we pick the U-Boot image from "loadables", start at
@@ -830,7 +832,7 @@ int spl_load_simple_fit(struct spl_image_info *spl_image,
 		index = 1;
 	}
 	if (node < 0) {
-		debug("%s: Cannot find u-boot image node: %d\n",
+		printf("%s: Cannot find u-boot image node: %d\n",
 		      __func__, node);
 		return -1;
 	}
@@ -845,7 +847,7 @@ int spl_load_simple_fit(struct spl_image_info *spl_image,
 	 * as a U-Boot image, if no OS-type has been declared.
 	 */
 	if (!spl_fit_image_get_os(ctx.fit, node, &spl_image->os))
-		debug("Image OS is %s\n", genimg_get_os_name(spl_image->os));
+		printf("Image OS is %s\n", genimg_get_os_name(spl_image->os));
 	else if (!IS_ENABLED(CONFIG_SPL_OS_BOOT))
 		spl_image->os = IH_OS_U_BOOT;
 
@@ -888,7 +890,7 @@ int spl_load_simple_fit(struct spl_image_info *spl_image,
 			spl_fit_upload_fpga(&ctx, node, &image_info);
 
 		if (!spl_fit_image_get_os(ctx.fit, node, &os_type))
-			debug("Loadable is %s\n", genimg_get_os_name(os_type));
+			printf("Loadable is %s\n", genimg_get_os_name(os_type));
 
 		if (os_takes_devicetree(os_type)) {
 			spl_fit_append_fdt(&image_info, info, offset, &ctx);

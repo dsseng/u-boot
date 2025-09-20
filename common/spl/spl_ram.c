@@ -21,7 +21,7 @@ static ulong spl_ram_load_read(struct spl_load_info *load, ulong sector,
 {
 	ulong addr = 0;
 
-	debug("%s: sector %lx, count %lx, buf %lx\n",
+	printf("%s: sector %lx, count %lx, buf %lx\n",
 	      __func__, sector, count, (ulong)buf);
 
 	if (IS_ENABLED(CONFIG_SPL_LOAD_FIT)) {
@@ -68,19 +68,19 @@ static int spl_ram_load_image(struct spl_image_info *spl_image,
 	    image_get_magic(header) == FDT_MAGIC) {
 		struct spl_load_info load;
 
-		debug("Found FIT\n");
+		printf("Found FIT\n");
 		spl_load_init(&load, spl_ram_load_read, NULL, 1);
 		ret = spl_load_simple_fit(spl_image, &load, 0, header);
 	} else {
 		ulong u_boot_pos = spl_get_image_pos();
 
-		debug("Legacy image\n");
+		printf("Legacy image\n");
 		/*
 		 * Get the header.  It will point to an address defined by
 		 * handoff which will tell where the image located inside
 		 * the flash.
 		 */
-		debug("u_boot_pos = %lx\n", u_boot_pos);
+		printf("u_boot_pos = %lx\n", u_boot_pos);
 		if (u_boot_pos == BINMAN_SYM_MISSING) {
 			/*
 			 * No binman support or no information. For now, fix it
