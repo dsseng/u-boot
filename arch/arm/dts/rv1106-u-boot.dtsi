@@ -16,6 +16,11 @@
 		stdout-path = &uart2;
 		u-boot,spl-boot-order = "same-as-spl", &sdmmc, &spi_nor, &spi_nand, &emmc;
 	};
+
+	dmc {
+		compatible = "rockchip,rv1106-dmc";
+		bootph-all;
+	};
 };
 
 &uart2 {
