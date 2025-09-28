@@ -6,7 +6,7 @@ config TARGET_EVB_RV1106
 	  RV1106 EVB is a evaluation board for Rockchp RV1106.
 
 config SYS_SOC
-	default "rockchip"
+	default "rv1106"
 
 source board/rockchip/evb_rv1106/Kconfig
 
@@ -29,14 +29,11 @@ config ROCKCHIP_BOOT_MODE_REG
 config ROCKCHIP_STIMER_BASE
 	default 0xff590020
 
-config SYS_SOC
-	default "rv1106"
-
 config CUSTOM_SYS_INIT_SP_ADDR
 	default 0x800000
 
 config SPL_STACK
-	default 0x600000
+	default 0x001fe000
 
 config SPL_STACK_R_ADDR
 	default 0x800000

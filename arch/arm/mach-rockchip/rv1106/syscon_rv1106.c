@@ -6,7 +6,7 @@
 
 #include <dm.h>
 #include <syscon.h>
-#include <asm/arch/clock.h>
+#include <asm/arch-rockchip/clock.h>
 
 static const struct udevice_id rv1106_syscon_ids[] = {
 	{ .compatible = "rockchip,rv1106-grf", .data = ROCKCHIP_SYSCON_GRF },
@@ -18,7 +18,7 @@ U_BOOT_DRIVER(syscon_rv1106) = {
 	.name = "rv1106_syscon",
 	.id = UCLASS_SYSCON,
 	.of_match = rv1106_syscon_ids,
-#if !CONFIG_IS_ENABLED(OF_PLATDATA)
+#if CONFIG_IS_ENABLED(OF_REAL)
 	.bind = dm_scan_fdt_dev,
 #endif
 };

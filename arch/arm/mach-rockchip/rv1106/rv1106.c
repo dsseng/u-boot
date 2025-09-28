@@ -9,11 +9,10 @@
 #include <miiphy.h>
 #include <syscon.h>
 #include <linux/delay.h>
-#include <asm/arch/clock.h>
 #include <asm/io.h>
-#include <asm/arch/hardware.h>
-#include <asm/arch/grf_rv1106.h>
-#include <asm/arch/ioc_rv1106.h>
+#include <asm/arch-rockchip/hardware.h>
+#include <asm/arch-rockchip/grf_rv1106.h>
+#include <asm/arch-rockchip/ioc_rv1106.h>
 
 DECLARE_GLOBAL_DATA_PTR;
 

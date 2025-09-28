@@ -8,7 +8,6 @@
 #include <dt-bindings/interrupt-controller/arm-gic.h>
 #include <dt-bindings/pinctrl/rockchip.h>
 #include <dt-bindings/soc/rockchip,boot-mode.h>
-#include <dt-bindings/soc/rockchip-system-status.h>
 #include <dt-bindings/thermal/thermal.h>
 
 / {
