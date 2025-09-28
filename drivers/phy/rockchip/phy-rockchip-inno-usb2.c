@@ -527,6 +527,19 @@ static const struct rockchip_usb2phy_cfg rk3588_phy_cfgs[] = {
 	{ /* sentinel */ }
 };
 
+static const struct rockchip_usb2phy_cfg rv1106_phy_cfgs[] = {
+	{
+		.reg = 0xff3e0000,
+		.clkout_ctl	= { 0x0058, 4, 4, 1, 0 },
+		.port_cfgs	= {
+			[USB2PHY_PORT_OTG] = {
+				.phy_sus	= { 0x0050, 1, 0, 2, 1 },
+			},
+		},
+	},
+	{ /* sentinel */ }
+};
+
 static const struct udevice_id rockchip_usb2phy_ids[] = {
 	{
 		.compatible = "rockchip,rk3308-usb2phy",
@@ -555,6 +568,10 @@ static const struct udevice_id rockchip_usb2phy_ids[] = {
 	{
 		.compatible = "rockchip,rk3588-usb2phy",
 		.data = (ulong)&rk3588_phy_cfgs,
+	},
+	{
+		.compatible = "rockchip,rv1106-usb2phy",
+		.data = (ulong)&rv1106_phy_cfgs,
 	},
 	{ /* sentinel */ }
 };
