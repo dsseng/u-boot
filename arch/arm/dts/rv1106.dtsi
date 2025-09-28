@@ -551,6 +551,7 @@
 		rockchip,usbgrf = <&grf>;
 		clocks = <&cru CLK_REF_USBPHY>, <&cru PCLK_USBPHY>;
 		clock-names = "phyclk", "pclk";
+		clock-output-names = "usb480m_phy0";
 		resets = <&cru SRST_USBPHY_POR>, <&cru SRST_P_USBPHY>;
 		reset-names = "u2phy", "u2phy-apb";
 		#clock-cells = <0>;
