@@ -19,6 +19,8 @@
 #include <asm/arch-rockchip/cru_rk3568.h>
 #elif defined(CONFIG_ROCKCHIP_RK3588)
 #include <asm/arch-rockchip/cru_rk3588.h>
+#elif defined(CONFIG_ROCKCHIP_RV1106)
+#include <asm/arch-rockchip/cru_rv1106.h>
 #endif
 
 /* CRU_GLB_RST_ST */
