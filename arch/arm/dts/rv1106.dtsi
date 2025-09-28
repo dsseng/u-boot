@@ -1103,6 +1103,8 @@
 		max-frequency = <200000000>;
 		rockchip,use-v2-tuning;
 		status = "disabled";
+		pinctrl-names = "default";
+		pinctrl-0 = <&emmc_bus8 &emmc_clk &emmc_cmd>;
 	};
 
 	sdmmc: mmc@ffaa0000 {
