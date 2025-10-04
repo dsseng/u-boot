@@ -122,7 +122,8 @@ static int designware_wdt_probe(struct udevice *dev)
 		return ret;
 
 	ret = clk_enable(&clk);
-	if (ret)
+	// Ignore ENOSYS, as some clk drivers do not support enable op
+	if (ret != 0 && ret != -ENOSYS)
 		return ret;
 
 	priv->clk_khz = clk_get_rate(&clk) / 1000;
