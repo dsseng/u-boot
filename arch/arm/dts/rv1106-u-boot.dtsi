@@ -169,6 +169,10 @@
 	status = "okay";
 };
 
+&wdt {
+	status = "okay";
+};
+
 &sfc {
 	bootph-all;
 	status = "okay";
