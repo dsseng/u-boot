@@ -33,6 +33,12 @@
 	"kernel_addr_r=0x00008000\0"	\
 	"ramdisk_addr_r=0x000e00000\0"
 
+#if defined(CONFIG_SPL_DFU) && defined(CONFIG_XPL_BUILD)
+#define CFG_EXTRA_ENV_SETTINGS						\
+	"dfu_alt_info_ram=u-boot.itb ram "				\
+			__stringify(CONFIG_SPL_LOAD_FIT_ADDRESS) " "	\
+			__stringify(CONFIG_SYS_DFU_MAX_FILE_SIZE) "\0"
+#else
 #define CFG_EXTRA_ENV_SETTINGS \
 	"fdt_high=0x0fffffff\0" \
 	"initrd_high=0x0fffffff\0" \
@@ -41,5 +47,6 @@
 	ENV_MEM_LAYOUT_SETTINGS	 \
 	ROCKCHIP_DEVICE_SETTINGS \
 	"boot_targets=" BOOT_TARGETS "\0"
+#endif /* defined(CONFIG_SPL_DFU) && defined(CONFIG_XPL_BUILD) */
 
 #endif /* __CONFIG_RV1106_COMMON_H */
