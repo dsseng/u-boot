@@ -31,7 +31,7 @@
 #endif
 #endif
 
-#if defined(CONFIG_SPL_FIT) && (defined(CONFIG_ARM64) || defined(CONFIG_SPL_OPTEE_IMAGE))
+#if defined(CONFIG_SPL_FIT) && (defined(CONFIG_ARM64) || defined(CONFIG_SPL_OPTEE_IMAGE) || 1)
 #define HAS_FIT
 #endif
 
@@ -115,7 +115,7 @@
 #endif
 			};
 #else /* !CONFIG_ARM64 */
-			op-tee {
+			/*op-tee {
 				description = "OP-TEE";
 				type = "tee";
 				arch = FIT_ARCH;
@@ -131,7 +131,7 @@
 					algo = FIT_HASH_ALGO;
 				};
 #endif
-			};
+			};*/
 #endif /* CONFIG_ARM64 */
 
 			@fdt-SEQ {
@@ -249,14 +249,14 @@
 			no-write-symbols;
 		};
 
-#ifdef HAS_FIT
+/*#ifdef HAS_FIT
 		fit {
 			insert-template = <&fit_template>;
 #else
 		u-boot-img {
 #endif
 			offset = <(CONFIG_SPL_LOAD_FIT_ADDRESS - CFG_SYS_SDRAM_BASE)>;
-		};
+		};*/
 	};
 #endif /* CONFIG_ROCKCHIP_MASKROM_IMAGE */
 };
