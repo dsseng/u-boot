@@ -1,30 +1,31 @@
 // SPDX-License-Identifier: GPL-2.0+
 /*
+ * Copied from sdram_rk3588.c:
  * (C) Copyright 2021 Rockchip Electronics Co., Ltd.
+ *
+ * Minor adaptation for rv1106:
+ * Copyright (c) 2025 Dmitrii Sharshakov <d3dx12.xx@gmail.com>
+ *
  */
 
 #include <config.h>
 #include <dm.h>
 #include <ram.h>
-#include <syscon.h>
-#include <asm/arch-rockchip/clock.h>
-#include <asm/arch-rockchip/grf_rv1106.h>
 #include <asm/arch-rockchip/sdram.h>
+
+// CHIP_VER_REG + 4
+#define OS_REG_2 0xff020204 + 4
 
 struct dram_info {
 	struct ram_info info;
-	// struct rv1106_pmu1grf *pmugrf;
 };
 
 static int rv1106_dmc_probe(struct udevice *dev)
 {
 	struct dram_info *priv = dev_get_priv(dev);
 
-	// priv->pmugrf = syscon_get_first_range(ROCKCHIP_SYSCON_PMUGRF);
 	priv->info.base = CFG_SYS_SDRAM_BASE;
-	priv->info.size = 0x8000000*2;//0xff000000;
-		// rockchip_sdram_size((phys_addr_t)&priv->pmugrf->os_reg[2]) +
-		// rockchip_sdram_size((phys_addr_t)&priv->pmugrf->os_reg[4]);
+	priv->info.size = rockchip_sdram_size(OS_REG_2);
 
 	return 0;
 }
