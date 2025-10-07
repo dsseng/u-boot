@@ -1258,6 +1258,7 @@ static int rv1106_clk_probe(struct udevice *dev)
 		     CLK_CORE_DIV_MASK,
 		     0 << CLK_CORE_DIV_SHIFT);
 
+	// FIXME: no SPL_KERNEL_BOOT in mainline
 #if defined(CONFIG_SPL_BUILD) && defined(CONFIG_SPL_KERNEL_BOOT)
 	/* increase the aclk_decom frequency */
 	rv1106_peri_set_clk(priv, ACLK_PERI_ROOT, 400 * MHz);

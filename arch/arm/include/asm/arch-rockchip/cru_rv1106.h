@@ -11,6 +11,7 @@
 #define KHz 1000
 #define OSC_HZ (24 * MHz)
 
+// FIXME: no SPL_KERNEL_BOOT in mainline
 #ifdef CONFIG_SPL_KERNEL_BOOT
 #define APLL_HZ (1104 * MHz)
 #else
