@@ -115,14 +115,14 @@
 #endif
 			};
 #else /* !CONFIG_ARM64 */
-			/*op-tee {
+			op-tee {
 				description = "OP-TEE";
 				type = "tee";
 				arch = FIT_ARCH;
 				os = "tee";
 				compression = "none";
-				load = <(CFG_SYS_SDRAM_BASE + 0x8400000)>;
-				entry = <(CFG_SYS_SDRAM_BASE + 0x8400000)>;
+				load = <(CFG_SYS_SDRAM_BASE + 0x3d00000)>;
+				entry = <(CFG_SYS_SDRAM_BASE + 0x3d00000)>;
 
 				tee-os {
 				};
@@ -131,7 +131,7 @@
 					algo = FIT_HASH_ALGO;
 				};
 #endif
-			};*/
+			};
 #endif /* CONFIG_ARM64 */
 
 			@fdt-SEQ {
