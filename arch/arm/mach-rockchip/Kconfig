@@ -500,7 +500,9 @@ config ROCKCHIP_RV1106
 	select REGMAP
 	select SYSCON
 	select DM_RESET
+	select SYS_DCACHE_OFF # Cache enable hangs in U-Boot with OP-TEE
 	imply ROCKCHIP_COMMON_BOARD
+	select SPL_OPTEE_IMAGE if SPL_FIT
 	imply BOARD_LATE_INIT
 	imply ROCKCHIP_OTP
 	imply MISC_INIT_R
