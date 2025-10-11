@@ -42,6 +42,10 @@
 #define CFG_EXTRA_ENV_SETTINGS \
 	"fdt_high=0x0fffffff\0" \
 	"initrd_high=0x0fffffff\0" \
+	"bootcmd=mw.l 0xff020200 0xEF08A53C;"                                                                                                  \
+	"setenv dfu_alt_info \"ram 0=uImage ram 0x2000000 0x1400000;devicetree.dtb ram 0x3400000 0x400000;initcpio ram 0x5d00000 0x2000000\";" \
+	"dfu 0;"                                                                                                                               \
+	"setenv bootargs 'earlycon=uart8250,mmio32,0xff4c0000 console=ttyS2 cma=1M ignore_loglevel clk_ignore_unused oops=panic panic=1';\0"   \
 	"fdtfile=" CONFIG_DEFAULT_FDT_FILE "\0" \
 	"partitions=" PARTS_DEFAULT \
 	ENV_MEM_LAYOUT_SETTINGS	 \
