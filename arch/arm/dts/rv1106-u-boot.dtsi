@@ -1,5 +1,6 @@
 /*
  * (C) Copyright 2022 Rockchip Electronics Co., Ltd
+ * (C) Copyright 2025 Dmitrii Sharshakov
  *
  * SPDX-License-Identifier:     GPL-2.0+
  */
@@ -7,14 +8,8 @@
 #include "rockchip-u-boot.dtsi"
 
 / {
-	aliases {
-		mmc1 = &sdmmc;
-		mmc0 = &emmc;
-	};
-
 	chosen {
-		stdout-path = &uart2;
-		u-boot,spl-boot-order = "same-as-spl", &sdmmc, &spi_nor, &spi_nand, &emmc;
+		u-boot,spl-boot-order = "same-as-spl", &emmc;
 	};
 
 	dmc {
@@ -23,96 +18,38 @@
 	};
 };
 
-&uart2 {
-	status = "okay";
+&uart0m0_xfer {
+	bootph-all;
+};
+&uart0 {
 	bootph-all;
 };
 
-&emmc {
-	mmc-ecsd = <0x3F000>;
-	bus-width = <8>;
-	mmc-hs200-1_8v;
+&uart2m1_xfer {
 	bootph-all;
-	status = "okay";
+};
+&uart2 {
+	bootph-all;
 };
 
 &cru {
 	bootph-all;
-	status = "okay";
-};
-
-&gmac {
-	bootph-all;
-	status = "okay";
 };
 
 &grf {
-	bootph-all;
-	status = "okay";
-};
-
-&grf_cru {
-	bootph-all;
-	status = "okay";
-};
-
-&mdio {
-	bootph-all;
-	status = "okay";
-};
-
-&rmii_phy {
-	bootph-all;
-	status = "okay";
-};
-
-&sdmmc {
-	bootph-all;
-	pwr-en-gpios = <&gpio0 RK_PA1 GPIO_ACTIVE_LOW>;
-	status = "okay";
-};
-
-&sdmmc0 {
-	bootph-all;
-};
-
-&sdmmc0_bus4 {
-	bootph-all;
-};
-
-&sdmmc0_clk {
-	bootph-all;
-};
-
-&sdmmc0_cmd {
-	bootph-all;
-};
-
-&sdmmc0_det {
-	bootph-all;
-};
-
-&sdmmc0_idle_pins {
-	bootph-all;
-};
-
-&sdmmc1m1_idle_pins {
 	bootph-all;
 };
 
 &pinctrl {
 	bootph-all;
-	status = "okay";
 };
 
 &ioc {
 	bootph-all;
-	status = "okay";
 };
 
 &pmuioc {
 	bootph-all;
-	status = "okay";
 };
 
 &pcfg_pull_up_drv_level_2 {
@@ -127,102 +64,29 @@
 	bootph-all;
 };
 
-&gpio0 {
-	bootph-all;
-	status = "okay";
-};
-
-&gpio1 {
-	bootph-all;
-	status = "okay";
-};
-
-&gpio2 {
-	bootph-all;
-	status = "okay";
-};
-
-&gpio3 {
-	bootph-all;
-	status = "okay";
-};
-
-&gpio4 {
-	bootph-all;
-	status = "okay";
-};
-
-&crypto {
-	bootph-all;
-	clocks = <&cru CLK_CORE_CRYPTO>, <&cru CLK_PKA_CRYPTO>;
-	clock-frequency = <300000000>, <300000000>;
-	status = "okay";
-};
-
-&rng {
-	bootph-all;
-	status = "okay";
-};
-
 &saradc {
 	bootph-all;
-	status = "okay";
 };
 
 &wdt {
-	status = "okay";
-};
-
-&sfc {
 	bootph-all;
-	status = "okay";
-
-	#address-cells = <1>;
-	#size-cells = <0>;
-	spi_nand: flash@0 {
-		bootph-all;
-		compatible = "spi-nand";
-		reg = <0>;
-		spi-tx-bus-width = <1>;
-		spi-rx-bus-width = <4>;
-		spi-max-frequency = <80000000>;
-	};
-
-	spi_nor: flash@1 {
-		bootph-all;
-		compatible = "jedec,spi-nor";
-		label = "sfc_nor";
-		reg = <0>;
-		spi-tx-bus-width = <1>;
-		spi-rx-bus-width = <4>;
-		spi-max-frequency = <100000000>;
-	};
 };
 
 &u2phy {
 	bootph-all;
-	status = "okay";
 };
 
 &u2phy_otg {
 	bootph-all;
-	status = "okay";
 };
 
 &usbdrd {
 	bootph-all;
-	status = "okay";
 };
-
 &usbdrd_dwc3 {
 	bootph-all;
-	status = "okay";
 };
 
-// pinctrl
-&uart2m1_xfer {
-	bootph-all;
-};
 &emmc_bus8 {
 	bootph-all;
 };
@@ -230,5 +94,8 @@
 	bootph-all;
 };
 &emmc_cmd {
+	bootph-all;
+};
+&emmc {
 	bootph-all;
 };
