@@ -26,6 +26,13 @@ config PHY_ROCKCHIP_INNO_USB2
 	help
 	  Support for Rockchip USB2.0 PHY with Innosilicon IP block.
 
+config SPL_PHY_ROCKCHIP_INNO_USB2
+	bool "Rockchip INNO USB2PHY Driver in SPL"
+	depends on SPL && ARCH_ROCKCHIP
+	select SPL_PHY
+	help
+	  Support for Rockchip USB2.0 PHY with Innosilicon IP block in SPL.
+
 config PHY_ROCKCHIP_NANENG_COMBOPHY
 	bool "Support Rockchip NANENG combo PHY Driver"
 	depends on ARCH_ROCKCHIP
