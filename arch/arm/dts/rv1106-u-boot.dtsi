@@ -209,6 +209,16 @@
 	status = "okay";
 };
 
+&usbdrd {
+	bootph-all;
+	status = "okay";
+};
+
+&usbdrd_dwc3 {
+	bootph-all;
+	status = "okay";
+};
+
 // pinctrl
 &uart2m1_xfer {
 	bootph-all;
