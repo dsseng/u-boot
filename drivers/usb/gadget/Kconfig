@@ -74,6 +74,7 @@ config USB_GADGET_PRODUCT_NUM
 	default 0x1010 if ARCH_SUNXI
 	default 0x110a if ROCKCHIP_RV1108
 	default 0x110b if ROCKCHIP_RV1126
+	default 0x110c if ROCKCHIP_RV1106
 	default 0x300a if ROCKCHIP_RK3066
 	default 0x301a if ROCKCHIP_RK3036
 	default 0x310b if ROCKCHIP_RK3188

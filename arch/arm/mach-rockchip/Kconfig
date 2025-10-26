@@ -488,6 +488,41 @@ config ROCKCHIP_RK3588
 	  SD3.0/MMC4.5, USB OTG 3.0, Type-C, USB 2.0, PCIe 3.0, SATA 3, Ethernet,
 	  SDIO3.0 I2C, UART, SPI, GPIO and PWM.
 
+config ROCKCHIP_RV1106
+	bool "Support Rockchip RV1106"
+	select CPU_V7A
+	select SUPPORT_SPL
+	select OF_CONTROL
+	select CLK
+	select FIT
+	select PINCTRL
+	select RAM
+	select REGMAP
+	select SYSCON
+	select DM_RESET
+	select SYS_DCACHE_OFF # Cache enable hangs in U-Boot with OP-TEE
+	imply ROCKCHIP_COMMON_BOARD
+	select SPL_OPTEE_IMAGE if SPL_FIT
+	imply BOARD_LATE_INIT
+	imply ROCKCHIP_OTP
+	imply MISC_INIT_R
+	imply SPL
+	imply ROCKCHIP_EXTERNAL_TPL
+	imply SPL_RAM
+	imply SPL_REGMAP
+	imply SPL_ROCKCHIP_COMMON_BOARD
+	imply SPL_SERIAL
+	imply SPL_PINCTRL
+	imply SPL_SYSCON
+	imply SPL_OF_CONTROL
+	imply SPL_CLK
+	imply SPL_LIBCOMMON_SUPPORT
+	imply SPL_LIBGENERIC_SUPPORT
+	imply ROCKCHIP_COMMON_STACK_ADDR
+	imply OF_UPSTREAM
+	help
+	  The Rockchip RV1106 is a ARM-based SoC with a single-core Cortex-A7.
+
 config ROCKCHIP_RV1108
 	bool "Support Rockchip RV1108"
 	select CPU_V7A
@@ -744,6 +779,7 @@ config NR_DRAM_BANKS
 
 config ROCKCHIP_OPTEE_DRAM_BASE
 	hex "OP-TEE base address in system DRAM"
+	default 0x3d00000 if ROCKCHIP_RV1106
 	default 0x8400000
 
 source "arch/arm/mach-rockchip/px30/Kconfig"
@@ -761,6 +797,7 @@ source "arch/arm/mach-rockchip/rk3528/Kconfig"
 source "arch/arm/mach-rockchip/rk3568/Kconfig"
 source "arch/arm/mach-rockchip/rk3576/Kconfig"
 source "arch/arm/mach-rockchip/rk3588/Kconfig"
+source "arch/arm/mach-rockchip/rv1106/Kconfig"
 source "arch/arm/mach-rockchip/rv1108/Kconfig"
 source "arch/arm/mach-rockchip/rv1126/Kconfig"
 
