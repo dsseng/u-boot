@@ -249,14 +249,14 @@
 			no-write-symbols;
 		};
 
-#ifdef HAS_FIT
+/*#ifdef HAS_FIT
 		fit {
 			insert-template = <&fit_template>;
 #else
 		u-boot-img {
 #endif
 			offset = <(CONFIG_SPL_LOAD_FIT_ADDRESS - CFG_SYS_SDRAM_BASE)>;
-		};
+		};*/
 	};
 #endif /* CONFIG_ROCKCHIP_MASKROM_IMAGE */
 };
