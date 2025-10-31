@@ -12,7 +12,7 @@
 	compatible = "luckfox,core1106-pico-pi-w", "luckfox,core1106-w", "rockchip,rv1106";
 
 	chosen {
-		stdout-path = "serial2:115200n8";
+		stdout-path = "serial0:115200n8";
 	};
 };
 
@@ -33,7 +33,7 @@
 	usb-role-switch;
 };
 
-&uart2 {
-	pinctrl-0 = <&uart2m1_xfer>;
+&uart0 {
+	pinctrl-0 = <&uart0m0_xfer>;
 	status = "okay";
 };
