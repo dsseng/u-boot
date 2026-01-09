@@ -1,0 +1,131 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * Copyright (c) 2022 Rockchip Electronics Co., Ltd.
+ */
+
+#include "rv1106.dtsi"
+#include <dt-bindings/input/input.h>
+
+/ {
+	model = "Luckfox Core1106 Module with a wireless module";
+	compatible = "luckfox,core1106-w","rockchip,rv1106";
+
+	vcc_1v8: vcc-1v8 {
+		compatible = "regulator-fixed";
+		regulator-name = "vcc_1v8";
+		regulator-always-on;
+		regulator-boot-on;
+		regulator-min-microvolt = <1800000>;
+		regulator-max-microvolt = <1800000>;
+	};
+
+	vcc_3v3: vcc-3v3 {
+		compatible = "regulator-fixed";
+		regulator-name = "vcc_3v3";
+		regulator-always-on;
+		regulator-boot-on;
+		regulator-min-microvolt = <3300000>;
+		regulator-max-microvolt = <3300000>;
+	};
+
+	vdd_arm: vdd-arm {
+		compatible = "regulator-fixed";
+		regulator-name = "vdd_arm";
+		regulator-always-on;
+		regulator-boot-on;
+		regulator-min-microvolt = <900000>;
+		regulator-max-microvolt = <900000>;
+	};
+
+	sdio_pwrseq: sdio-pwrseq {
+		compatible = "mmc-pwrseq-simple";
+		reset-gpios = <&gpio1 RK_PA2 GPIO_ACTIVE_LOW>;
+	};
+
+	adc-keys {
+		compatible = "adc-keys";
+		io-channels = <&saradc 0>;
+		io-channel-names = "buttons";
+		keyup-threshold-microvolt = <1000000>;
+		poll-interval = <100>;
+
+		button-recovery {
+			label = "Recovery";
+			linux,code = <KEY_SETUP>;
+			press-threshold-microvolt = <500000>;
+		};
+	};
+};
+
+&cpu0_opp_table {
+		/delete-node/ opp-1200000000;
+		/delete-node/ opp-1296000000;
+		/delete-node/ opp-1416000000;
+		/delete-node/ opp-1512000000;
+		/delete-node/ opp-1608000000;
+};
+
+&usbdrd_dwc3 {
+	extcon = <&u2phy>;
+};
+
+&cpu0 {
+	cpu-supply = <&vdd_arm>;
+};
+
+&saradc {
+	status = "okay";
+	vref-supply = <&vcc_1v8>;
+};
+
+&emmc {
+	cap-mmc-highspeed;
+	mmc-ddr-3_3v;
+	bus-width = <8>;
+	non-removable;
+	rockchip,default-sample-phase = <90>;
+	no-sdio;
+	no-sd;
+	disable-wp;
+	status = "okay";
+
+	pinctrl-names = "default";
+	pinctrl-0 = <&emmc_bus8 &emmc_cmd &emmc_clk>;
+
+	vqmmc-supply = <&vcc_3v3>;
+	vmmc-supply = <&vcc_3v3>;
+	no-1-8-v;
+};
+
+&pinctrl {
+	sdmmc0 {
+		/omit-if-no-ref/
+		sdmmc0_det: sdmmc0-det {
+			rockchip,pins =
+				/* sdmmc0_det */
+				<3 RK_PA1 1 &pcfg_pull_down>;
+		};
+	};
+};
+
+&sdmmc {
+	max-frequency = <50000000>;
+	bus-width = <4>;
+	cap-sd-highspeed;
+	cap-sdio-irq;
+	keep-power-in-suspend;
+	non-removable;
+	rockchip,default-sample-phase = <90>;
+	no-sd;
+	no-mmc;
+	disable-wp;
+	mmc-pwrseq = <&sdio_pwrseq>;
+	status = "okay";
+
+	pinctrl-names = "default";
+	pinctrl-0 = <&sdmmc0_clk &sdmmc0_cmd &sdmmc0_bus4 &sdmmc0_det>;
+
+	vqmmc-supply = <&vcc_3v3>;
+	vmmc-supply = <&vcc_3v3>;
+	no-1-8-v;
+};

@@ -1,0 +1,39 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * Copyright (c) 2022 Rockchip Electronics Co., Ltd.
+ */
+
+/dts-v1/;
+
+#include "rv1106-luckfox-core1106-w.dtsi"
+
+/ {
+	model = "Luckfox Pico Pi W";
+	compatible = "luckfox,core1106-pico-pi-w", "luckfox,core1106-w", "rockchip,rv1106";
+
+	chosen {
+		stdout-path = "serial2:115200n8";
+	};
+};
+
+&u2phy {
+	status = "okay";
+};
+
+&u2phy_otg {
+	status = "okay";
+};
+
+&usbdrd {
+	status = "okay";
+};
+
+&usbdrd_dwc3 {
+	status = "okay";
+	usb-role-switch;
+};
+
+&uart2 {
+	pinctrl-0 = <&uart2m1_xfer>;
+	status = "okay";
+};
