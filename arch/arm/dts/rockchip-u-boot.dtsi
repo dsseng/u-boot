@@ -249,6 +249,8 @@
 			no-write-symbols;
 		};
 
+/* If SPL enables DFU support it is expected that U-Boot is loaded over DFU, not bundled */
+#ifndef CONFIG_SPL_DFU
 #ifdef HAS_FIT
 		fit {
 			insert-template = <&fit_template>;
@@ -257,6 +259,7 @@
 #endif
 			offset = <(CONFIG_SPL_LOAD_FIT_ADDRESS - CFG_SYS_SDRAM_BASE)>;
 		};
+#endif /* CONFIG_SPL_DFU */
 	};
 #endif /* CONFIG_ROCKCHIP_MASKROM_IMAGE */
 };

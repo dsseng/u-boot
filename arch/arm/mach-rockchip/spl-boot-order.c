@@ -102,9 +102,13 @@ void board_boot_order(u32 *spl_boot_list)
 	int idx = 0;
 
 	/* Add RAM boot for maskrom mode boot over USB */
-	if (BROM_BOOTSOURCE_ID_ADDR && CONFIG_IS_ENABLED(RAM_DEVICE) &&
+	if (BROM_BOOTSOURCE_ID_ADDR &&
 	    read_brom_bootsource_id() == BROM_BOOTSOURCE_USB) {
+#ifdef CONFIG_SPL_DFU
+		spl_boot_list[idx++] = BOOT_DEVICE_DFU;
+#elif CONFIG_RAM_DEVICE
 		spl_boot_list[idx++] = BOOT_DEVICE_RAM;
+#endif
 	}
 
 	/* In case of no fdt (or only plat), use spl_boot_device() */
