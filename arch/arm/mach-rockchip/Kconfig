@@ -614,6 +614,13 @@ config ROCKCHIP_BOOT_MODE_REG
 	  The Soc will enter to different boot mode(defined in asm/arch-rockchip/boot_mode.h)
 	  according to the value from this register.
 
+config ROCKCHIP_BOOT_MODE_ADC_CHAN
+	int "Rockchip boot mode download key ADC channel"
+	default 1
+	help
+	  On some boards, the download button is connected to an ADC channel
+	  This button can be used to make U-Boot reboot into the SoC MaskROM.
+
 config ROCKCHIP_RK8XX_DISABLE_BOOT_ON_POWERON
 	bool "Disable device boot on power plug-in"
 	depends on PMIC_RK8XX
