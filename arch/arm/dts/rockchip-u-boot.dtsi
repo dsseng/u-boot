@@ -121,8 +121,8 @@
 				arch = FIT_ARCH;
 				os = "tee";
 				compression = "none";
-				load = <(CFG_SYS_SDRAM_BASE + 0x8400000)>;
-				entry = <(CFG_SYS_SDRAM_BASE + 0x8400000)>;
+				load = <(CFG_SYS_SDRAM_BASE + CONFIG_ROCKCHIP_OPTEE_DRAM_BASE)>;
+				entry = <(CFG_SYS_SDRAM_BASE + CONFIG_ROCKCHIP_OPTEE_DRAM_BASE)>;
 
 				tee-os {
 				};

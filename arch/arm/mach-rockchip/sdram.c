@@ -330,7 +330,7 @@ int dram_init_banksize(void)
 		gd->bd->bi_dram[1].size = top - gd->bd->bi_dram[1].start;
 	} else {
 		gd->bd->bi_dram[0].start = CFG_SYS_SDRAM_BASE;
-		gd->bd->bi_dram[0].size = 0x8400000;
+		gd->bd->bi_dram[0].size = CONFIG_ROCKCHIP_OPTEE_DRAM_BASE;
 		/* Reserve 32M for OPTEE with TA */
 		gd->bd->bi_dram[1].start = CFG_SYS_SDRAM_BASE
 					+ gd->bd->bi_dram[0].size + 0x2000000;

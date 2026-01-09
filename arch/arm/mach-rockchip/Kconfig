@@ -742,6 +742,10 @@ config ROCKCHIP_COMMON_STACK_ADDR
 config NR_DRAM_BANKS
 	default 10 if ROCKCHIP_EXTERNAL_TPL
 
+config ROCKCHIP_OPTEE_DRAM_BASE
+	hex "OP-TEE base address in system DRAM"
+	default 0x8400000
+
 source "arch/arm/mach-rockchip/px30/Kconfig"
 source "arch/arm/mach-rockchip/rk3036/Kconfig"
 source "arch/arm/mach-rockchip/rk3066/Kconfig"
