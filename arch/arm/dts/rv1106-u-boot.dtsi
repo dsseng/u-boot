@@ -18,7 +18,7 @@
 	};
 };
 
-&uart2 {
+&uart0 {
 	bootph-all;
 };
 
@@ -79,7 +79,7 @@
 };
 
 // pinctrl
-&uart2m1_xfer {
+&uart0m0_xfer {
 	bootph-all;
 };
 &emmc_bus8 {

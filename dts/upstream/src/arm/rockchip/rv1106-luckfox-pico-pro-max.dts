@@ -13,7 +13,7 @@
 	compatible = "luckfox,rv1106-pico-pro-max", "rockchip,rv1106";
 
 	chosen {
-		stdout-path = "serial2:115200n8";
+		stdout-path = "serial0:115200n8";
 	};
 
 	vcc_1v8: vcc-1v8 {
@@ -111,8 +111,8 @@
 	no-1-8-v;
 };
 
-&uart2 {
-	pinctrl-0 = <&uart2m1_xfer>;
+&uart0 {
+	pinctrl-0 = <&uart0m0_xfer>;
 	status = "okay";
 };
 
