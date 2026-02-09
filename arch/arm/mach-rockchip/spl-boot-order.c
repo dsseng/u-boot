@@ -106,7 +106,7 @@ void board_boot_order(u32 *spl_boot_list)
 	    read_brom_bootsource_id() == BROM_BOOTSOURCE_USB) {
 #ifdef CONFIG_SPL_DFU
 		spl_boot_list[idx++] = BOOT_DEVICE_DFU;
-#elif CONFIG_RAM_DEVICE
+#elif CONFIG_SPL_RAM_DEVICE
 		spl_boot_list[idx++] = BOOT_DEVICE_RAM;
 #endif
 	}
